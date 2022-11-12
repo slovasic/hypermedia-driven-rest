@@ -7,6 +7,7 @@ import org.springframework.hateoas.config.EnableHypermediaSupport;
 import org.springframework.hateoas.config.EnableHypermediaSupport.HypermediaType;
 import org.springframework.web.reactive.config.EnableWebFlux;
 
+@EnableHypermediaSupport(type = HypermediaType.HAL)
 @SpringBootApplication
 public class HypermediaDrivenRestApplication {
 
