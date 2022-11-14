@@ -19,12 +19,12 @@ import lombok.ToString;
 @Data
 @NoArgsConstructor
 public class Company {
-	
+
 	@Id
 	private long id;
-	
+
 	private String name;
-	
+
 	@OneToMany(mappedBy = "company")
 	@ToString.Exclude
 	@EqualsAndHashCode.Exclude

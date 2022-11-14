@@ -1,12 +1,10 @@
 package com.svasic.demo.domain.company.api;
 
-import static com.svasic.demo.config.ApplicationUrls.REST_API_COMPANY;
+import static com.svasic.demo.config.ApplicationUrls.REST_API_COMPANIES_V1;
 
-import java.util.List;
-
-import org.springframework.hateoas.CollectionModel;
+import org.springframework.data.domain.Page;
 import org.springframework.hateoas.EntityModel;
-import org.springframework.hateoas.server.ExposesResourceFor;
+import org.springframework.hateoas.PagedModel;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -14,49 +12,41 @@ import org.springframework.web.bind.annotation.RestController;
 
 import com.svasic.demo.domain.company.services.CompanyService;
 import com.svasic.demo.domain.company.view.CompanyDto;
-import com.svasic.demo.domain.product.services.ProductService;
-import com.svasic.demo.domain.product.view.ProductDto;
-import com.svasic.demo.infra.assemblers.CompanyModelAssembler;
+import com.svasic.demo.infra.assemblers.CompanyPagedResourceModelAssembler;
+import com.svasic.demo.infra.processors.CompanyRepresentationModelProcessor;
 
 @RestController
-@ExposesResourceFor(CompanyDto.class)
-@RequestMapping(REST_API_COMPANY)
+@RequestMapping(REST_API_COMPANIES_V1)
 public class CompanyController {
 
 	private final CompanyService companyService;
 
-	private final ProductService productService;
+	private final CompanyRepresentationModelProcessor companyRepresentationModelProcessor;
 
-	private final CompanyModelAssembler companyModelAssembler;
-
-	public CompanyController(CompanyService companyService, ProductService productService,
-			CompanyModelAssembler companyModelAssembler) {
+	public CompanyController(CompanyService companyService,
+			CompanyRepresentationModelProcessor companyRepresentationModelProcessor) {
 
 		this.companyService = companyService;
-		this.productService = productService;
-		this.companyModelAssembler = companyModelAssembler;
+		this.companyRepresentationModelProcessor = companyRepresentationModelProcessor;
 
 	}
 
 	@GetMapping(path = "{id}")
 	public EntityModel<CompanyDto> company(@PathVariable("id") long id) {
 
-		return companyModelAssembler.toModel(companyService.findCompanyById(id));
+		CompanyDto companyDto = companyService.findCompanyById(id);
+		CompanyDto processedCompany = companyRepresentationModelProcessor
+				.process(companyDto);
+		return EntityModel.of(processedCompany);
 	}
 
 	@GetMapping
-	public CollectionModel<EntityModel<CompanyDto>> companies() {
+	public PagedModel<EntityModel<CompanyDto>> companies(
+			final CompanyPagedResourceModelAssembler assembler) {
 
-		List<CompanyDto> companies = companyService.findAllCompanies();
+		Page<CompanyDto> companies = companyService.findAllCompanies();
 
-		return companyModelAssembler.toCollectionOfCompaniesWithoutProducts(companies);
-	}
-
-	@GetMapping(path = "{id}/products")
-	public CollectionModel<ProductDto> products(@PathVariable("id") long id) {
-
-		return CollectionModel.of(productService.findAllByCompanyId(id));
-
+		return assembler.toModel(companies);
 	}
 
 }

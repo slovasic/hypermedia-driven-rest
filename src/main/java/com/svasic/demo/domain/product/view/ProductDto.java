@@ -8,6 +8,7 @@ import lombok.Value;
 @Value
 @EqualsAndHashCode(callSuper = true)
 public class ProductDto extends RepresentationModel<ProductDto> {
+
 	private final long id;
 	private final String name;
 }
