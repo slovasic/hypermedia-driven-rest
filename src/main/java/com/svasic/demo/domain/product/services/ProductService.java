@@ -2,11 +2,9 @@ package com.svasic.demo.domain.product.services;
 
 import java.util.ArrayList;
 import java.util.List;
-import java.util.Optional;
 
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageImpl;
-import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 
 import com.svasic.demo.domain.product.model.Product;
@@ -25,16 +23,11 @@ public class ProductService {
 
 	public ProductDto findProductById(long id) {
 
-		Optional<Product> productOptional = productRepository.findById(id);
+		return productMapper.productToDto(productRepository.findById(id).get());
 
-		if (productOptional.isPresent()) {
-			return productMapper.productToDto(productOptional.get());
-		}
-
-		return null;
 	}
 
-	public Page<ProductDto> findAllProducts(Pageable pageable) {
+	public Page<ProductDto> findAllProducts() {
 
 		List<Product> products = productRepository.findAll();
 		List<ProductDto> productDtos = new ArrayList<>();
@@ -43,6 +36,6 @@ public class ProductService {
 			productDtos.add(productMapper.productToDto(product));
 		}
 
-		return new PageImpl<>(productDtos, pageable, 5);
+		return new PageImpl<>(productDtos);
 	}
 }

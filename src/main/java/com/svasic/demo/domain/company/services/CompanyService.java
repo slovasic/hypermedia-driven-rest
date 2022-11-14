@@ -2,7 +2,6 @@ package com.svasic.demo.domain.company.services;
 
 import java.util.ArrayList;
 import java.util.List;
-import java.util.Optional;
 
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageImpl;
@@ -38,11 +37,8 @@ public class CompanyService {
 
 	public CompanyDto findCompanyById(long companyId) {
 
-		Optional<Company> companyOptional = companyRepository.fetchCompanyById(companyId);
-
-		CompanyDto companyDto = companyMapper.companyToDto(companyOptional.get());
-
-		return companyDto;
+		return companyMapper
+				.companyToDto(companyRepository.fetchCompanyById(companyId).get());
 
 	}
 

@@ -3,7 +3,6 @@ package com.svasic.demo.domain.product.api;
 import static com.svasic.demo.config.ApplicationUrls.REST_API_PRODUCTS_V1;
 
 import org.springframework.data.domain.Page;
-import org.springframework.data.domain.Pageable;
 import org.springframework.data.web.PagedResourcesAssembler;
 import org.springframework.hateoas.EntityModel;
 import org.springframework.hateoas.PagedModel;
@@ -44,9 +43,9 @@ public class ProductController {
 
 	@GetMapping
 	public PagedModel<EntityModel<ProductDto>> products(
-			final PagedResourcesAssembler<ProductDto> assembler, final Pageable pageable) {
+			final PagedResourcesAssembler<ProductDto> assembler) {
 
-		Page<ProductDto> productDtos = productService.findAllProducts(pageable);
+		Page<ProductDto> productDtos = productService.findAllProducts();
 
 		return assembler.toModel(productDtos);
 	}
