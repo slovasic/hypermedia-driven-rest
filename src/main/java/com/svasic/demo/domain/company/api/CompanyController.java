@@ -2,7 +2,6 @@ package com.svasic.demo.domain.company.api;
 
 import static com.svasic.demo.config.ApplicationUrls.REST_API_COMPANIES_V1;
 
-import org.springframework.data.domain.Page;
 import org.springframework.hateoas.EntityModel;
 import org.springframework.hateoas.PagedModel;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -44,9 +43,7 @@ public class CompanyController {
 	public PagedModel<EntityModel<CompanyDto>> companies(
 			final CompanyPagedResourceModelAssembler assembler) {
 
-		Page<CompanyDto> companies = companyService.findAllCompanies();
-
-		return assembler.toModel(companies);
+		return assembler.toModel(companyService.findAllCompanies());
 	}
 
 }

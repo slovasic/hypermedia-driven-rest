@@ -45,9 +45,7 @@ public class ProductController {
 	public PagedModel<EntityModel<ProductDto>> products(
 			final PagedResourcesAssembler<ProductDto> assembler) {
 
-		Page<ProductDto> productDtos = productService.findAllProducts();
-
-		return assembler.toModel(productDtos);
+		return assembler.toModel(productService.findAllProducts());
 	}
 
 }
