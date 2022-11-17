@@ -28,9 +28,8 @@ public class CompanyRepresentationModelProcessor
 
 		model.add(linkTo(methodOn(CompanyController.class).company(model.getId()))
 				.withSelfRel());
-		Set<ProductDto> products = model.getProducts();
 
-		for (ProductDto product : products) {
+		for (ProductDto product : model.getProducts()) {
 			model.add(linkTo(methodOn(ProductController.class).product(product.getId()))
 					.withRel("products"));
 		}

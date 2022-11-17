@@ -5,6 +5,7 @@ import java.util.List;
 
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageImpl;
+import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 
 import com.svasic.demo.domain.product.model.Product;
@@ -27,15 +28,14 @@ public class ProductService {
 
 	}
 
-	public Page<ProductDto> findAllProducts() {
+	public Page<ProductDto> findAllProducts(Pageable page) {
 
-		List<Product> products = productRepository.findAll();
 		List<ProductDto> productDtos = new ArrayList<>();
 
-		for (Product product : products) {
+		for (Product product : productRepository.findAll(page)) {
 			productDtos.add(productMapper.productToDto(product));
 		}
 
-		return new PageImpl<>(productDtos);
+		return new PageImpl<>(productDtos, page, productRepository.count());
 	}
 }

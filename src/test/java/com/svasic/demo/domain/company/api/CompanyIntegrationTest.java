@@ -29,6 +29,14 @@ public class CompanyIntegrationTest {
 	}
 
 	@Test
+	void shouldReturnLinksForPages() throws Exception {
+
+		webTestClient.get().uri(REST_API_COMPANIES_V1).exchange().expectBody()
+				.jsonPath("$._links.first").exists().jsonPath("$._links.last").exists();
+
+	}
+
+	@Test
 	void shouldReturnCompanyWithProducts() throws Exception {
 
 		webTestClient.get().uri(REST_API_COMPANIES_V1 + "/2").exchange().expectBody()

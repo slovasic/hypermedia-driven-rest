@@ -2,6 +2,7 @@ package com.svasic.demo.domain.company.api;
 
 import static com.svasic.demo.config.ApplicationUrls.REST_API_COMPANIES_V1;
 
+import org.springframework.data.domain.Pageable;
 import org.springframework.hateoas.EntityModel;
 import org.springframework.hateoas.PagedModel;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -34,16 +35,14 @@ public class CompanyController {
 	public EntityModel<CompanyDto> company(@PathVariable("id") long id) {
 
 		CompanyDto companyDto = companyService.findCompanyById(id);
-		CompanyDto processedCompany = companyRepresentationModelProcessor
-				.process(companyDto);
-		return EntityModel.of(processedCompany);
+		return EntityModel.of(companyRepresentationModelProcessor.process(companyDto));
 	}
 
 	@GetMapping
-	public PagedModel<EntityModel<CompanyDto>> companies(
+	public PagedModel<EntityModel<CompanyDto>> companies(final Pageable page,
 			final CompanyPagedResourceModelAssembler assembler) {
 
-		return assembler.toModel(companyService.findAllCompanies());
+		return assembler.toModel(companyService.findAllCompanies(page));
 	}
 
 }

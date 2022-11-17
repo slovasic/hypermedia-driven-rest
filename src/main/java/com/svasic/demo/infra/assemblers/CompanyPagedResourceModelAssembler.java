@@ -1,13 +1,13 @@
 package com.svasic.demo.infra.assemblers;
 
 import static org.springframework.hateoas.server.mvc.WebMvcLinkBuilder.linkTo;
+import static org.springframework.hateoas.server.mvc.WebMvcLinkBuilder.methodOn;
 
 import org.springframework.data.domain.Page;
 import org.springframework.data.web.HateoasPageableHandlerMethodArgumentResolver;
 import org.springframework.data.web.PagedResourcesAssembler;
 import org.springframework.hateoas.EntityModel;
 import org.springframework.hateoas.PagedModel;
-import org.springframework.hateoas.server.mvc.WebMvcLinkBuilder;
 import org.springframework.web.util.UriComponents;
 
 import com.svasic.demo.domain.company.api.CompanyController;
@@ -31,12 +31,15 @@ public class CompanyPagedResourceModelAssembler
 
 	@Override
 	public PagedModel<EntityModel<CompanyDto>> toModel(Page<CompanyDto> page) {
-
+		
 		for (CompanyDto companyDto : page) {
-			companyDto.add(linkTo(WebMvcLinkBuilder.methodOn(CompanyController.class)
-					.company(companyDto.getId())).withSelfRel());
+			companyDto.add(
+					linkTo(methodOn(CompanyController.class).company(companyDto.getId()))
+							.withSelfRel());
 		}
 
+		setForceFirstAndLastRels(true);
+		
 		return super.toModel(page);
 	}
 

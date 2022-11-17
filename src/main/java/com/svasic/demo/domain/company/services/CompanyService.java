@@ -5,6 +5,7 @@ import java.util.List;
 
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageImpl;
+import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 
 import com.svasic.demo.domain.company.model.Company;
@@ -21,18 +22,15 @@ public class CompanyService {
 	private final CompanyRepository companyRepository;
 	private final CompanyMapper companyMapper;
 
-	public Page<CompanyDto> findAllCompanies() {
+	public Page<CompanyDto> findAllCompanies(Pageable page) {
 
-		Iterable<Company> companies = companyRepository.findAll();
 		List<CompanyDto> companyDtos = new ArrayList<>();
 
-		for (Company company : companies) {
-			CompanyDto compDto = companyMapper.companyOnlyToDto(company);
-			companyDtos.add(compDto);
-
+		for (Company company : companyRepository.findAll(page)) {
+			companyDtos.add(companyMapper.companyOnlyToDto(company));
 		}
 
-		return new PageImpl<>(companyDtos);
+		return new PageImpl<>(companyDtos, page, companyRepository.count());
 	}
 
 	public CompanyDto findCompanyById(long companyId) {
