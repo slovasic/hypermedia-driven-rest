@@ -1,7 +1,9 @@
 package com.svasic.demo.domain.company.api;
 
 import static com.svasic.demo.config.ApplicationUrls.REST_API_COMPANIES_V1;
+import static org.mockito.ArgumentMatchers.matches;
 
+import org.hamcrest.Matchers;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.autoconfigure.web.reactive.AutoConfigureWebTestClient;
@@ -33,6 +35,15 @@ public class CompanyIntegrationTest {
 
 		webTestClient.get().uri(REST_API_COMPANIES_V1).exchange().expectBody()
 				.jsonPath("$._links.first").exists().jsonPath("$._links.last").exists();
+
+	}
+	
+	@Test
+	void shouldReturnLinksForPagesStartingIndexOne() throws Exception {
+
+		webTestClient.get().uri(REST_API_COMPANIES_V1).exchange().expectBody()
+				.jsonPath("$._links.first.href")
+				.value(Matchers.matchesRegex(".*\\?page=1.*"));
 
 	}
 

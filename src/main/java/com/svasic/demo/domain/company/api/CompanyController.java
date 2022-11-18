@@ -12,7 +12,7 @@ import org.springframework.web.bind.annotation.RestController;
 
 import com.svasic.demo.domain.company.services.CompanyService;
 import com.svasic.demo.domain.company.view.CompanyDto;
-import com.svasic.demo.infra.assemblers.CompanyPagedResourceModelAssembler;
+import com.svasic.demo.infra.assemblers.CompanyPagedRepresentationModelAssembler;
 import com.svasic.demo.infra.processors.CompanyRepresentationModelProcessor;
 
 @RestController
@@ -22,15 +22,15 @@ public class CompanyController {
 	private final CompanyService companyService;
 
 	private final CompanyRepresentationModelProcessor companyRepresentationModelProcessor;
-	private final CompanyPagedResourceModelAssembler assembler;
+	private final CompanyPagedRepresentationModelAssembler assembler;
 
 	public CompanyController(CompanyService companyService,
 			CompanyRepresentationModelProcessor companyRepresentationModelProcessor,
-			CompanyPagedResourceModelAssembler companyPagedResourceModelAssembler) {
+			CompanyPagedRepresentationModelAssembler companyPagedRepresentationModelAssembler) {
 
 		this.companyService = companyService;
 		this.companyRepresentationModelProcessor = companyRepresentationModelProcessor;
-		this.assembler = companyPagedResourceModelAssembler;
+		this.assembler = companyPagedRepresentationModelAssembler;
 	}
 
 	@GetMapping(path = "{id}")

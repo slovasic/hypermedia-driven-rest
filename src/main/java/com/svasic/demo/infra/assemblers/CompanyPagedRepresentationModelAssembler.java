@@ -23,11 +23,10 @@ import com.svasic.demo.domain.company.view.CompanyDto;
  *
  */
 @Component
-@Lazy(false)
-public class CompanyPagedResourceModelAssembler
+public class CompanyPagedRepresentationModelAssembler
 		extends PagedResourcesAssembler<CompanyDto> {
 
-	public CompanyPagedResourceModelAssembler(
+	public CompanyPagedRepresentationModelAssembler(
 			HateoasPageableHandlerMethodArgumentResolver resolver,
 			@Nullable UriComponents baseUri) {
 
