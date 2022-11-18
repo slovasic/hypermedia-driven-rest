@@ -10,13 +10,11 @@ import com.svasic.demo.domain.company.model.Company;
 
 import lombok.Data;
 import lombok.EqualsAndHashCode;
-import lombok.NoArgsConstructor;
 import lombok.ToString;
 
 @Entity
 @Table(name = "products")
 @Data
-@NoArgsConstructor
 public class Product {
 
 	@Id

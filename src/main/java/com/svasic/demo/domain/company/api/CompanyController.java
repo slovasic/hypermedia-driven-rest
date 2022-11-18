@@ -22,13 +22,15 @@ public class CompanyController {
 	private final CompanyService companyService;
 
 	private final CompanyRepresentationModelProcessor companyRepresentationModelProcessor;
+	private final CompanyPagedResourceModelAssembler assembler;
 
 	public CompanyController(CompanyService companyService,
-			CompanyRepresentationModelProcessor companyRepresentationModelProcessor) {
+			CompanyRepresentationModelProcessor companyRepresentationModelProcessor,
+			CompanyPagedResourceModelAssembler companyPagedResourceModelAssembler) {
 
 		this.companyService = companyService;
 		this.companyRepresentationModelProcessor = companyRepresentationModelProcessor;
-
+		this.assembler = companyPagedResourceModelAssembler;
 	}
 
 	@GetMapping(path = "{id}")
@@ -39,8 +41,7 @@ public class CompanyController {
 	}
 
 	@GetMapping
-	public PagedModel<EntityModel<CompanyDto>> companies(final Pageable page,
-			final CompanyPagedResourceModelAssembler assembler) {
+	public PagedModel<EntityModel<CompanyDto>> companies(final Pageable page) {
 
 		return assembler.toModel(companyService.findAllCompanies(page));
 	}

@@ -32,9 +32,8 @@ public class ProductService {
 
 		List<ProductDto> productDtos = new ArrayList<>();
 
-		for (Product product : productRepository.findAll(page)) {
-			productDtos.add(productMapper.productToDto(product));
-		}
+		productRepository.findAll(page).stream()
+				.forEach(product -> productDtos.add(productMapper.productToDto(product)));
 
 		return new PageImpl<>(productDtos, page, productRepository.count());
 	}
