@@ -1,4 +1,4 @@
-package com.svasic.demo.domain.product.api;
+package com.svasic.demo.api;
 
 import static com.svasic.demo.config.ApplicationUrls.REST_API_PRODUCTS_V1;
 
@@ -14,8 +14,8 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
-import com.svasic.demo.domain.product.services.ProductService;
 import com.svasic.demo.domain.product.view.ProductDto;
+import com.svasic.demo.services.ProductService;
 
 @RestController
 @ExposesResourceFor(ProductDto.class)

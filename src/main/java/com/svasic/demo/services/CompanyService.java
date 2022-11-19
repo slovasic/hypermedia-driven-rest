@@ -1,4 +1,4 @@
-package com.svasic.demo.domain.company.services;
+package com.svasic.demo.services;
 
 import java.util.ArrayList;
 import java.util.List;

@@ -1,4 +1,4 @@
-package com.svasic.demo.domain.company.api;
+package com.svasic.demo.api;
 
 import static com.svasic.demo.config.ApplicationUrls.REST_API_COMPANIES_V1;
 
@@ -10,10 +10,10 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
-import com.svasic.demo.domain.company.services.CompanyService;
 import com.svasic.demo.domain.company.view.CompanyDto;
 import com.svasic.demo.infra.assemblers.CompanyPagedRepresentationModelAssembler;
 import com.svasic.demo.infra.processors.CompanyRepresentationModelProcessor;
+import com.svasic.demo.services.CompanyService;
 
 @RestController
 @RequestMapping(REST_API_COMPANIES_V1)

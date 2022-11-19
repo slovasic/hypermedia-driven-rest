@@ -6,9 +6,9 @@ import static org.springframework.hateoas.server.mvc.WebMvcLinkBuilder.methodOn;
 import org.springframework.hateoas.server.RepresentationModelProcessor;
 import org.springframework.stereotype.Component;
 
-import com.svasic.demo.domain.company.api.CompanyController;
+import com.svasic.demo.api.CompanyController;
+import com.svasic.demo.api.ProductController;
 import com.svasic.demo.domain.company.view.CompanyDto;
-import com.svasic.demo.domain.product.api.ProductController;
 
 /**
  * Processes model by adding links to Product(s)

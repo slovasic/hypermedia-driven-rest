@@ -14,8 +14,8 @@ import org.mockito.Mock;
 import org.mockito.MockitoAnnotations;
 
 import com.svasic.demo.domain.company.model.CompanyRepository;
-import com.svasic.demo.domain.company.services.CompanyService;
 import com.svasic.demo.infra.mappers.CompanyMapper;
+import com.svasic.demo.services.CompanyService;
 
 public class CompanyServiceTest {
 

@@ -13,7 +13,7 @@ import org.springframework.lang.Nullable;
 import org.springframework.stereotype.Component;
 import org.springframework.web.util.UriComponents;
 
-import com.svasic.demo.domain.company.api.CompanyController;
+import com.svasic.demo.api.CompanyController;
 import com.svasic.demo.domain.company.view.CompanyDto;
 
 /**
