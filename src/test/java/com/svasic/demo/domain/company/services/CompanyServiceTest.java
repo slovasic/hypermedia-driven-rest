@@ -1,4 +1,4 @@
-package com.svasic.demo.domain.company.api;
+package com.svasic.demo.domain.company.services;
 
 import static org.junit.jupiter.api.Assertions.assertThrows;
 import static org.mockito.ArgumentMatchers.anyLong;
